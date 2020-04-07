@@ -1,13 +1,14 @@
-new Vue({
+var game= new Vue({
     el: "#app",
     data: {
         playerHealth: 100,
         monsterHealth: 10,
         gameIsRunning: false,
-        turns:[]
+        turns: []
 
     },
     methods: {
+
         startGame: function () {
             this.gameIsRunning = true,
                 this.playerHealth = 100,
@@ -15,17 +16,17 @@ new Vue({
 
         },
         attack: function () {
-            var damage= this.calculateDamage(3, 10);
+            var damage = this.calculateDamage(3, 10);
             this.monsterHealth -= damage;
 
             this.turns.unshift({
                 isPlayer: true,
-                text: "Ashu hits Aasim! Aasim's Health- "+ this.monsterHealth
+                text: "Ashu hits Aasim! Aasim's Health- " + this.monsterHealth
 
             })
-        
 
-            if(this.monsterHealth<=0){
+
+            if (this.monsterHealth <= 0) {
                 if (confirm('You won! New Game?')) {
                     this.startGame();
                 }
@@ -36,17 +37,17 @@ new Vue({
 
             }
 
-            
-            this.playerHealth -=  this.calculateDamage(5, 12);
+
+            this.playerHealth -= this.calculateDamage(5, 12);
 
             this.turns.unshift({
                 isPlayer: false,
-                text: "Aasim hits Aashu !   Ashu's Health  "+ this.playerHealth
+                text: "Aasim hits Aashu !   Ashu's Health  " + this.playerHealth
 
             })
-        
 
-         
+
+
             if (this.playerHealth <= 0) {
                 if (confirm('You Lost! New Game?')) {
                     this.startGame();
@@ -58,42 +59,42 @@ new Vue({
 
             }
 
-           
+
 
         },
 
         specialAttack: function () {
 
             this.monsterHealth -= this.calculateDamage(10, 20);
-            
+
             this.turns.unshift({
                 isPlayer: true,
-                text: "Ashu hits  Aasim hard! Aasim's Health- "+ this.monsterHealth
+                text: "Ashu hits  Aasim hard! Aasim's Health- " + this.monsterHealth
 
             })
-        
-            if(this.monsterHealth<=0){
+
+            if (this.monsterHealth <= 0) {
                 if (confirm('You won! New Game?')) {
                     this.startGame();
-                    this.turns=[];
+                    this.turns = [];
                 }
                 else {
                     this.gameIsRunning = false;
-                    this.turns=[];
+                    this.turns = [];
                 }
                 return;
             }
 
-            
+
             this.playerHealth -= this.calculateDamage(5, 12);
-            
+
             this.turns.unshift({
                 isPlayer: false,
-                text: "Aasim hits Aashu hard !   Ashu's Health  "+ this.playerHealth
+                text: "Aasim hits Aashu hard !   Ashu's Health  " + this.playerHealth
 
             })
-        
-        
+
+
             if (this.playerHealth <= 0) {
                 if (confirm('You Lost! New Game?')) {
                     this.startGame();
@@ -104,31 +105,29 @@ new Vue({
                 return;
 
             }
-            
+
         },
 
         heal: function () {
 
-            if(this.playerHealth<=90)
-            {
-                this.playerHealth+=10;
+            if (this.playerHealth <= 90) {
+                this.playerHealth += 10;
                 this.turns.unshift({
                     isPlayer: false,
-                    text: "Ashu heals, Ashu's Health is "+ this.playerHealth
-    
+                    text: "Ashu heals, Ashu's Health is " + this.playerHealth
+
                 })
-            
-            }else
-            {
-                this.playerHealth=100;
+
+            } else {
+                this.playerHealth = 100;
             }
 
         },
 
         giveUp: function () {
 
-            this.gameIsRunning= false;
-            this.turns= [];
+            this.gameIsRunning = false;
+            this.turns = [];
         },
 
         calculateDamage: function (min, max) {
@@ -138,7 +137,7 @@ new Vue({
             return damage;
 
         },
-       
+
 
 
     }
